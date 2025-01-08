@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validador de Bandeira de Cartão</title>
+</head>
+<body>
+  <h1>Validador de Bandeira de Cartão</h1>
+  <input type="text" id="cardNumber" placeholder="Digite o número do cartão">
+  <button onclick="validateCard()">Verificar Bandeira</button>
+  <p id="result"></p>
+
+  <script>
+    function validateCard() {
+      const cardNumber = document.getElementById("cardNumber").value.trim();
+      const result = document.getElementById("result");
+
+      if (!/^[0-9]+$/.test(cardNumber)) {
+        result.textContent = "Número de cartão inválido.";
+        return;
+      }
+
+      let cardType = "Desconhecida";
+
+      if (cardNumber.startsWith("4")) {
+        cardType = "Visa";
+      } else if (/^5[1-5]/.test(cardNumber) || /^2(2[2-9][1-9]|[3-6][0-9][0-9]|7[0-1][0-9]|720)/.test(cardNumber)) {
+        cardType = "MasterCard";
+      } else if (/^3[47]/.test(cardNumber)) {
+        cardType = "American Express";
+      } else if (/^6(011|5|4[4-9])/.test(cardNumber) || /^644|649/.test(cardNumber)) {
+        cardType = "Discover";
+      } else if (/^6062/.test(cardNumber)) {
+        cardType = "Hipercard";
+      } else if (/^(4011|4312|4389|5041|6277|6362)/.test(cardNumber)) {
+        cardType = "Elo";
+      }
+
+      result.textContent = `A bandeira do cartão é: ${cardType}`;
+    }
+  </script>
+</body>
+</html>
+  
+
+<!-- Objetivo:
+imputado um numero de cartão de credito, validar qual a bandeira daquele cartão
+
+Regras:
+Bandeiras
+Visa: Começa sempre com o número 4
+MasterCard: começa com dígitos entre 51 e 55, ou entre 2221 a 2720
+Elo: Pode começar com vários intervalos, como 4011, 4312, 4389, entre outros 
+American Express: inicia com 34 ou 37 
+Discover: começa com 6011,065, ou com a faixa de 644 a 649
+Hipercard: geralmente começa com 6062 -->
+
