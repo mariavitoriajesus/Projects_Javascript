@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Rankeadas</title>
+</head>
+<body>
+    <h1>Calculadora de Partidas Rankeadas</h1>
+  <form id="rankedForm">
+    <label for="vitorias">Número de Vitórias:</label>
+    <input type="number" id="vitorias" required />
+    <br /><br />
+    <label for="derrotas">Número de Derrotas:</label>
+    <input type="number" id="derrotas" required />
+    <br /><br />
+    <button type="submit">Calcular Nível</button>
+  </form>
+  <h2 id="resultado"></h2>
+
+  <script>
+     // Função para calcular o nível e saldo
+     function calcularRanked(vitorias, derrotas) {
+      const saldoVitorias = vitorias - derrotas;
+      let nivel = "";
+
+      if (vitorias < 10) {
+        nivel = "Ferro";
+      } else if (vitorias <= 20) {
+        nivel = "Bronze";
+      } else if (vitorias <= 50) {
+        nivel = "Prata";
+      } else if (vitorias <= 80) {
+        nivel = "Ouro";
+      } else if (vitorias <= 90) {
+        nivel = "Diamante";
+      } else if (vitorias <= 100) {
+        nivel = "Lendário";
+      } else {
+        nivel = "Imortal";
+      }
+
+      return `Seu herói tem o saldo ${saldoVitorias} e está no nível ${nivel}!!`;
+    }
+
+    // Evento para capturar o formulário e calcular
+    document.getElementById("rankedForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const vitorias = parseInt(document.getElementById("vitorias").value);
+      const derrotas = parseInt(document.getElementById("derrotas").value);
+
+      const resultado = calcularRanked(vitorias, derrotas);
+      document.getElementById("resultado").innerText = resultado;
+    });
+  </script>
+</body>
+</html>
